@@ -4,7 +4,6 @@ import { http, setAccessToken } from "./http"
 import type { LoginRequest, AuthReponse, ResgisterRequest } from "./Type"
 
 
-
 export async function register(payload: ResgisterRequest): Promise<AuthReponse> {
     const res = await http.post("/users/register", payload)
     setAccessToken(res.data.accessToken)
