@@ -19,7 +19,7 @@ export default function SignupPage() {
 
     })
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault
+        e.preventDefault()
         mutationRegister.mutate({ name, email, password })
     }
     return (

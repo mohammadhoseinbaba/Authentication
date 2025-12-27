@@ -1,30 +1,37 @@
-//do i have to use Mutate here?no just for the tasks idk yet why 
+// //do i have to use Mutate here?no just for the tasks idk yet why 
+// because it is server state managing and not should be used for sending request to the server
 
 import { http, setAccessToken } from "./http"
-import type { LoginRequest, AuthReponse, ResgisterRequest } from "./Type"
+import type { AuthReponse, LoginRequest, ResgisterRequest, Task } from "./Type"
 
-
-export async function register(payload: ResgisterRequest): Promise<AuthReponse> {
-    const res = await http.post("/users/register", payload)
-    setAccessToken(res.data.accessToken)
+export async function register(params: ResgisterRequest) : Promise<AuthReponse> {
+    const res = await http.post("/signup", params)
     return res.data
 }
 
-export async function login(payload: LoginRequest): Promise<AuthReponse> {
-    const res = await http.post("/users", {
-        params: {
-            email: payload.email,
-            password: payload.password,
-        }
-    })
-    if (res.data.length === 0) {
-        throw new Error("Invalid email or password")
-    }
-
+export async function login(params: LoginRequest): Promise <AuthReponse> {
+    const res = await http.post("/login", params)
+    if (res.data.length === 0)
+        throw new Error("Invalid username or password")
     return res.data
 }
 
 export async function logout() {
-    await http.post("/users/logout")
+    await http.post("/logout")
     setAccessToken(null)
+}
+
+//---------------todo------------//
+
+export async function createTask(params: Task) {
+    const res = await http.post("/addToDo", params)
+    return res.data
+}
+
+export async function updateTask(params: Task) {
+    const res = await http.put("/updateTask", params)
+    return res.data
+}
+export async function deleteTask() {
+    await http.delete("/delete")
 }

@@ -3,16 +3,21 @@ import { login } from "../API/auth"
 import { useMutation } from "@tanstack/react-query"
 import { useNavigate } from "react-router-dom"
 import type { AuthReponse, LoginRequest } from "../API/Type"
+import { useAuthStore } from "../Store/useAuthStore"
 
 export default function LoginPage() {
     const navigate = useNavigate()
+    const useAuth = useAuthStore((s)=>s.setAuth)
+
     const [email, setEmail] = useState<string>("")
     const [password, setPassword] = useState<string>("")
+
+
 
     const loginMutation = useMutation<AuthReponse, Error, LoginRequest>({
         mutationFn: login,
         onSuccess: (res) => {
-            localStorage.setItem("accessToken", res.accessToken)
+            useAuth({user:res.user , accessToken : res.accessToken })
             navigate("/dashboard")
         }, onError: (e) => {
             console.log(e.message)
