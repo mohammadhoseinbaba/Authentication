@@ -1,7 +1,7 @@
 // //do i have to use Mutate here?no just for the tasks idk yet why 
 // because it is server state managing and not should be used for sending request to the server
 
-import { http, setAccessToken } from "./http"
+import { http } from "./http"
 import type { AuthReponse, LoginRequest, ResgisterRequest, Task } from "./Type"
 
 export async function register(params: ResgisterRequest) : Promise<AuthReponse> {
@@ -18,7 +18,6 @@ export async function login(params: LoginRequest): Promise <AuthReponse> {
 
 export async function logout() {
     await http.post("/logout")
-    setAccessToken(null)
 }
 
 //---------------todo------------//

@@ -1,4 +1,5 @@
 import axios from "axios"
+import { useAuthStore } from "../Store/useAuthStore"
 
 export const http = axios.create({
   baseURL: "http://localhost:3000",
@@ -7,22 +8,27 @@ export const http = axios.create({
     "Content-Type": "application/json"
   },
 })
+// simple refresh managment
 
-let accessToken: string | null = localStorage.getItem("accesstoken")
+// let accessToken: string | null = localStorage.getItem("accesstoken")
 
-export const setAccessToken = (token: string | null) => {
-  accessToken = token
-  if(token) localStorage.setItem("accessToken" , token)
-    else localStorage.removeItem("accessToken")
-}
-export const getAccessToken = () => {
-  return accessToken
-}
+// export const setAccessToken = (token: string | null) => {
+//   accessToken = token
+//   if(token) localStorage.setItem("accessToken" , token)
+//     else localStorage.removeItem("accessToken")
+// }
+// export const getAccessToken = () => {
+//   return accessToken
+// }
+
+//using presist middleware
+//this method is better because of safty reactivity and clean code
 
 http.interceptors.request.use(
   (config) => {
     console.log("request is sending ...." + config.url)
-    const token = getAccessToken()
+    const token = useAuthStore.getState().accessToken
+
     if (token) {
       config.headers.Authorization = `bearer ${token}`
     }
