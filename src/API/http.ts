@@ -10,7 +10,7 @@ export const http = axios.create({
 
 let accessToken: string | null = localStorage.getItem("accesstoken")
 
-export const setAccessToken = (token: string) => {
+export const setAccessToken = (token: string | null) => {
   accessToken = token
   if(token) localStorage.setItem("accessToken" , token)
     else localStorage.removeItem("accessToken")
