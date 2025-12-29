@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    /* Project structure */
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    /* Module system (VERY important for your case) */
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022",
+
+    /* Runtime types */
+    "types": ["node"],
+
+    /* Strictness (you already chose strict mode) */
+    "strict": true,
+    "exactOptionalPropertyTypes": true,
+    "noUncheckedIndexedAccess": true,
+
+    /* Interop & build quality */
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  }
+}

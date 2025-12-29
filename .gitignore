@@ -1,0 +1,15 @@
+# dependencies
+**/node_modules/
+
+# builds
+**/dist/
+
+# env files (never commit secrets)
+**/.env
+
+# prisma generated / local stuff
+**/.prisma
+**/prisma/dev.db
+
+# logs
+**/*.log
