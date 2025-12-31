@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { register } from "../API/auth"
 import { useMutation } from "@tanstack/react-query"
+import { useAuthStore } from "../Store/useAuthStore"
+import { useNavigate } from "react-router-dom"
 
 export default function SignupPage() {
 
@@ -8,11 +10,13 @@ export default function SignupPage() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
-
+    const setAuth = useAuthStore((s) => s.setAuth)
+    const navigate = useNavigate()
     const mutationRegister = useMutation({
         mutationFn: register,
         onSuccess: (res) => {
-            console.log(res)
+            setAuth({ user: res.user, accessToken: res.accessToken })
+            navigate("/dashboard")
         }, onError: (e) => {
             console.log(e.message)
         }

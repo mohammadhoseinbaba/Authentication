@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query"
 import { useNavigate } from "react-router-dom"
 import type { AuthReponse, LoginRequest } from "../API/Type"
 import { useAuthStore } from "../Store/useAuthStore"
-
+import { Button } from "../Components/Button"
 export default function LoginPage() {
     const navigate = useNavigate()
     const useAuth = useAuthStore((s) => s.setAuth)
@@ -64,7 +64,7 @@ export default function LoginPage() {
       "
                         type="password"
                         onChange={(e) => setPassword(e.target.value)} value={password} />
-                    <button className="
+                    <Button className="
       w-full
       bg-sky-300 text-white font-bold
       rounded
@@ -73,7 +73,7 @@ export default function LoginPage() {
       disabled:opacity-60 disabled:cursor-not-allowed
     "
                         type="submit"
-                        disabled={loginMutation.isPending}>{loginMutation.isPending ? "logging in ..." : "Submit"}</button>
+                        disabled={loginMutation.isPending} >{loginMutation.isPending ? "logging in ..." : "Submit"}</Button>
                 </form>
          
             {loginMutation.isError && (<div>{loginMutation.error.message}</div>)}
